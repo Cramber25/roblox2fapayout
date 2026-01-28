@@ -40,12 +40,12 @@ def set_csrf():
 
 def payout_request():
     request = requests.post("https://groups.roblox.com/v1/groups/" + str(group_id) + "/payouts", headers=headers, json={
-       "PayoutType": "FixedAmount",
+       "PayoutType": 1,
        "Recipients": [
            {
                "amount": robux_amount,
                "recipientId": user_id,
-               "recipientType": "User"
+               "recipientType": 0
            }
        ]
     })
@@ -85,7 +85,6 @@ def continue_request(challengeId, verification_token, metadata_challengeId):
         }),
         "challengeType": "twostepverification"
     })
-
 
 
 # --- Payout the robux ---
