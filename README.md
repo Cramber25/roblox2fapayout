@@ -1,6 +1,8 @@
 ## Paying out robux from a group, handling the Chef challenge and two factor authentication
 
-main.py contains example python code that does the whole process
+step-by-step.py contains example python code that does the whole process
+
+**On the bottom of readme** are examples on how to use my pre-made classes. However, the best practice is to make your own classes.
 
 # How it works:
 
@@ -58,7 +60,57 @@ The next payout request using the same session has to include 3 new headers:
 ```
 
 ### 7.
-If the challenge type is "blocksession" at the beginning or after the chef request, your session is temporarily flagged. You need to wait around 90 seconds and try the whole process from scratch.
+If the challenge type is "blocksession" at the beginning or after the chef request, your session is temporarily flagged. You need to wait around a minute and try the whole process from scratch.
 
 ### 8.
 That's it! Everything should be validated and robux sent.
+
+# Pre-made classes usage
+
+## Python:
+grab the `payout.py` file
+```python
+from payout import RobloxPayout
+
+# set up the class with static variables once
+roblox = RobloxPayout(
+    roblosecurity="your_roblosecurity_cookie_here",
+    group_id=0, # your group id here
+    twofactor_secret="your_twofactor_secret_here"
+)
+
+# call the payout function dynamically
+success = roblox.payout(
+    user_id=0, # your user id here
+    robux_amount=0 # your robux amount here
+)
+
+if success:
+    print("payout function finished successfully.")
+else:
+    print("payout function failed.")
+```
+
+## NodeJS (JavaScript)
+grab the `payout.js` file
+```javascript
+const RobloxPayout = require('./payout');
+
+async function run() {
+    const roblox = new RobloxPayout(
+        "your_roblosecurity_cookie_here",
+        0, // your group id here
+        "your_twofactor_secret_here"
+    );
+
+    const success = await roblox.payout(0, 0); // 1st argument is your user id, 2nd is the robux amount
+    
+    if (success) {
+        console.log("payout function finished successfully.");
+    } else {
+        console.log("payout function failed.");
+    }
+}
+
+run();
+```
