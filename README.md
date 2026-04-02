@@ -114,3 +114,25 @@ async function run() {
 
 run();
 ```
+
+### LuaU (inside roblox)
+grab the `payout.lua` file and put it in a modulescript.
+we need a proxy here, because roblox blocks connections to their apis from the gameservers
+```lua
+local PayoutService = require(script.payout)
+
+local PS = PayoutService.new(
+	"your_roblosecurity_cookie_here",
+	0, -- your group id
+	"your_twofactor_secret_here",
+	"roproxy.com" -- Optional: change this if you set up your own proxy
+)
+
+local success = PS:payout(0, 0) -- 1st argument is your user id, 2nd is the robux amount
+
+if success then
+	print("payout function finished successfully.")
+else
+	print("payout function failed.")
+end
+```
